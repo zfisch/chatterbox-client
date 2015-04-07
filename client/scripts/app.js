@@ -7,7 +7,7 @@ var user = {
 
 
 var app = {
-  server: 'https://api.parse.com/1/classes/chatterbox',
+  server: 'https://api.parse.com/1/classes/chatterbox?order=-createdAt',
   init: function() { app.fetch(); },
   send: function( message ) { post(message); },
   fetch: function() { get( parseRooms ); },

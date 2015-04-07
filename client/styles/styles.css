@@ -73,6 +73,17 @@ form input[type=text] {
     background-color: #ddd;
 }
 
+#roomSelect {
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 20px;
+}
+
+.room {
+    border:1px, solid;
+    text-decoration: underline;
+}
+
 .spinner {
     float: right;
     height: 46px;

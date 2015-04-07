@@ -4,12 +4,8 @@
     <meta charset="utf-8">
     <title>chatterbox</title>
     <link rel="stylesheet" href="styles/styles.css">
-
-    <!-- dependencies -->
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
-
-    <!-- your scripts -->
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/interaction.js"></script>
@@ -17,10 +13,25 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <!-- Your HTML goes here! -->
       <div id="roomSelect"></div>
+      <form>
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" />
+          </div>
+          <div>
+            <label for="msg">Message:</label>
+            <textarea id="msg"></textarea>
+          </div>
+          <div>
+            <label for="room"></label>
+            <input type="hidden" id="room">
+          </div>
+          <div class="button">
+            <button>Send your message</button>
+          </div>
+      </form>
       <div id="chats">
-
       </div>
     </div>
   </body>
