@@ -10,8 +10,8 @@ var app = {
   server: 'https://api.parse.com/1/classes/chatterbox',
   init: function() { app.fetch(); },
   send: function( message ) { post(message); },
-  fetch: function() { get(); },
-  addMessage: function( message ) { $('#chats').append( toHTML( message, 'chat' ) ) },
+  fetch: function() { get( parseRooms ); },
+  addMessage: function( message ) { $('#chats').append( message ) },
   clearMessages: function() { $('#chats').empty() },
   addRoom: function( roomName ) { $('#roomSelect').append( toHTML( roomName, 'room' ) ) },
 };
@@ -32,7 +32,7 @@ var post = function(message){
   });
 };
 
-var get = function(){
+var get = function(fn, room){
 
   $.ajax({
     url: app.server,
@@ -41,20 +41,27 @@ var get = function(){
     success: function (data) {
       console.log('chatterbox: Message received');
       console.log(data);
-      parseRooms(data);
+      fn(data, room);
     },
     error: function (data) {
       console.error('chatterbox: Failed to receive message');
     }
   });
-
 };
 
 var toHTML = function(str, cssClass){
   //deal with escaping
-  return "<div class=" + cssClass + ">" + str + "</div>";
+  if(str){
+    var lt = /</g,
+    gt = />/g,
+    ap = /'/g,
+    ic = /"/g;
+    str = str.toString().replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&#39;").replace(ic, "&#34;");
+    return "<div class=" + cssClass + ">" + str + "</div>";
+  }
 }
 
+//Populate list of rooms
 
 var addRooms = function(rooms){
   _.each(rooms, function(room){
@@ -72,29 +79,30 @@ var parseRooms = function(response){
 };
 
 
+//Display all messages in the selected room
+//All messages have username and message (and room)
 
+var parseMessages = function(response, room){
+  var data = response.results;
+  console.log("parsethis", this)
+  _.each(data, function(datum){
+    if(datum.roomname === room){
+      createMessage(datum.text, datum.username);
+    }
+  });
+}
 
-
-// var parseMessages = function(response){
-
-// }
+var createMessage = function( message, username ){
+  var $div = '<div class="message">' + toHTML(username, 'username') + toHTML(message, 'chat') + "</div>";
+  app.addMessage($div);
+}
 
 
 app.init();
 
 
 
-
-
-
-
-
-
-//Populate list of rooms
-//Need to provide place to select room
 //Click on room
-//Display all messages in the selected room
-//All messages have username and message (and room)
 //Need to keep list of friends
 //Need to bold class messages from friends
 //Need place to post new messages
