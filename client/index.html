@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title>chatterbox</title>
     <link rel="stylesheet" href="styles/styles.css">
-    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/interaction.js"></script>
@@ -34,5 +36,9 @@
       <div id="chats">
       </div>
     </div>
+  <script>
+    var messages = new Messages();
+    messages.loadMsgs();
+  </script>
   </body>
 </html>
